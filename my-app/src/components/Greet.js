@@ -1,6 +1,6 @@
 // src/components/Greet.js
 
-import React, { useState } from 'react';
+import React, { useState ,useRef, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Greet() {
@@ -14,7 +14,12 @@ export default function Greet() {
     function handleStart() {
         navigate("/dashboard", { state: { name } });
     }
+    const inputRef = useRef(null);
 
+    useEffect(() => {
+        // Focus the input when the component mounts
+        inputRef.current.focus();
+    }, []);
     return (
         <div style={{ textAlign: 'center', padding: '50px' }}>
             <h1>WELCOME TO EXPENSE TRACKER</h1>
@@ -23,6 +28,7 @@ export default function Greet() {
                 type='text' 
                 placeholder='Enter your name' 
                 onChange={handleChange} 
+                ref={inputRef}
             />
             <br />
             <button onClick={handleStart}>GET STARTED</button>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-function FormComp({ details, setdetails }) {
-  const [amount, setamount] = useState(0);
+function FormComp({ details, setdetails, settime }) {
+  const [amount, setamount] = useState();
   const [msg, setmsg] = useState('');
   const [category, setCategory] = useState('need'); // State for category
 
@@ -17,6 +17,9 @@ function FormComp({ details, setdetails }) {
     setamount(0);
     setmsg('');
     setCategory('need'); // Reset category
+    const d = new Date();
+     let time = `${d.getHours()% 12 || 12}:${d.getMinutes()}`
+     settime(time)
   };
 
   
@@ -24,23 +27,30 @@ function FormComp({ details, setdetails }) {
   return (
     <>
       <form onSubmit={handleSubmit}>
+        <div class="d-flex justify-content-center">
         <input
           type="number"
           name="amount"
           onChange={(e) => setamount(Number(e.target.value))}
           value={amount}
+          placeholder='amount'
+          className='m-y 3'
         />
         <input
           type="text"
           name="msg"
           onChange={(e) => setmsg(e.target.value)}
           value={msg}
+          placeholder='message'
+          className='my 3'
         />
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="need">need</option>
-          <option value="want">want</option>
+        <select value={category} onChange={(e) => setCategory(e.target.value)}
+          className="form-select   " >
+          <option value="need" >need</option>
+          <option value="want" >want</option>
         </select>
-        <button type="submit">enter</button>
+        </div>
+        <button type="submit" className="btn btn-warning">enter</button>
       </form>
       
     </>
